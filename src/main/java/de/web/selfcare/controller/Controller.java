@@ -27,16 +27,18 @@ public class Controller {
     @GetMapping("/deleteall")
     public String deleteAll(Model model) {
         //postRepository.deleteAll();
-        Post n = postRepository.findById(Long.valueOf(12)).orElse(new Post());
-        n.setBild("/Users/cumali/Documents/Studium/WEB/uploads/12");
-        postRepository.save(n);
         return "index.html";
     }
 
-    @GetMapping("/index.html")
+    @GetMapping()
     public String index(Model model) {
         model.addAttribute("postList", postRepository.findAll());
         return "index.html";
+    }
+
+    @GetMapping("index.html")
+    public String indexre(Model model) {
+        return "redirect:/";
     }
 
     @GetMapping("/post")
