@@ -72,7 +72,7 @@ public class Controller {
 
         Post post = new Post();
         postRepository.save(post);
-        String path = "/Users/cumali/Documents/Studium/WEB/uploads/"
+        String path = "/Users/cumali/Documents/Studium/WEB/selfcare/src/main/resources/uploads/"
                 + post.getId();
         post.setTitel(titel);
         if (!datum.isEmpty()) post.setDatum(LocalDate.parse(datum));
