@@ -26,7 +26,10 @@ public class Controller {
 
     @GetMapping("/deleteall")
     public String deleteAll(Model model) {
-        postRepository.deleteAll();
+        //postRepository.deleteAll();
+        Post n = postRepository.findById(Long.valueOf(12)).orElse(new Post());
+        n.setBild("/Users/cumali/Documents/Studium/WEB/uploads/12");
+        postRepository.save(n);
         return "index.html";
     }
 
@@ -67,12 +70,12 @@ public class Controller {
 
         Post post = new Post();
         postRepository.save(post);
-        String path = "/Users/cumali/Documents/Studium/WEB/selfcare/src/main/resources/static/uploads/"
+        String path = "/Users/cumali/Documents/Studium/WEB/uploads/"
                 + post.getId();
         post.setTitel(titel);
         if (!datum.isEmpty()) post.setDatum(LocalDate.parse(datum));
         post.setBeschreibung(beschreibung);
-        post.setBild("/uploads/"+ post.getId());
+        post.setBild(path);
         post.setMeditation(meditation);
         post.setSport(sport);
         post.setSchlaf(schlaf);

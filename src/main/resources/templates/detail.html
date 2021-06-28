@@ -113,7 +113,7 @@
                 Hier soll die Beschreibung stehen.
               </p>
               <hr class="s"></hr>
-              <img  th:src="${post.bild}" class="img-fluid rounded" />
+              <img  th:src="@{'/api/' + ${post.id} + '/bild'}" class="img-fluid rounded" />
               <hr class="s"></hr>
 
               <p class="card-text" th:text="'Meditation: ' + ${post.meditation}">
