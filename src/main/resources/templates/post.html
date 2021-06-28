@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${titel}"></title>
+    <style>
+      img {
+        max-width:100%;
+        max-height:auto;
+        border-radius: 1rem;
+      }
+      .titelschrift {
+        width: 100%;
+        height: auto;
+        margin-bottom: 2rem;
+      }
+      .border {
+        padding: 2rem;
+      }
+      hr {
+        width: 70%;
+      }
+      .s {
+        visibility: hidden;
+      }
+      .outline {
+        border-radius: 2rem;
+      }
+      .btn-2 {
+        box-shadow:
+        -7px -7px 20px 0px #fff9,
+        -4px -4px 5px 0px #fff9,
+        7px 7px 20px 0px #0002,
+        4px 4px 5px 0px #0001;
+      }
+      .btn {
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+      .mask-custom {
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+        background-color: rgba(255, 255, 255, 0.7);
+      }
+      .card-text {
+        font-size: 3rem;
+      }
+      h1.test1 {
+        color: #36903d;
+        font-family: Georgia, sans-serif;
+        font-size: 20rem;
+        letter-spacing: -2px;
+      }
+      /* in kleineren Formaten soll die schrift kleiner sein,
+         habe das mit dem Framework nicht hinbekommen */
+      @media (max-width: 992px) {
+        h1.test1 {
+          font-size: 10rem;
+        }
+      }
+      .no-decoration {
+        text-decoration: none !important;
+        color: #36903d;
+      }
+      .card-text {
+        margin-top: 1rem;
+      }
+
+    </style>
+    <link rel="stylesheet" href="bootstrap-3.4.1-dist/css/bootstrap.min.css">
+  </head>
+
+  <body style="background-image: url('img/11.webp'); width: 100%; background-repeat: no-repeat; background-position: center;
+  background-size: cover; height: 100%;">
+  <ul>
+    <li th:each="u : ${posts}" th:text="${u.titel} +' ' + ${u.datum}"></li>
+  </ul>
+
+    <div class="container text-center">
+      <div class="row">
+
+
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <h1 class="test1">
+            <a class="no-decoration" href="./index.html">
+            SELF CARE
+          </a>
+          </h1>
+
+
+          <div class="text-center" style="position: fixed; left: 50%; transform: translate(-50%, -50%); bottom: 2rem; z-index: 9999;">
+            <button form="formular" class="btn btn-primary btn-lg" type="reset">Cancel</button>
+          </div>
+
+          <div>
+                              <hr class="s"><hr class="s"><hr class="s">
+          </div>
+
+          <div class="row gx-1 gy-4">
+
+
+            <div class="col-lg-12 col-md-12 border">
+
+            	<div class="card btn-2 outline mask-custom">
+
+                <div style="margin: 5rem;">
+
+                <form action="/post" method="post" enctype="multipart/form-data" id="formular">
+                  <hr class="s"></hr>
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label card-text">Titel:</label>
+                    <input name="titel" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Titel vom Post">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label card-text">Datum:</label>
+                    <input name="datum" class="form-control" type="date">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label card-text">Beschreibung:</label>
+                    <textarea name="beschreibung" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                  </div>
+                  <div class="mb-3">
+                    <label for="formFile" class="form-label card-text">Bild des Tages:</label>
+                    <input name="bild" class="form-control" type="file" id="formFile">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label card-text">Meditation:</label>
+                    <input name="meditation" class="form-control"type="time">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label card-text">Sport:</label>
+                    <input name="sport" class="form-control"type="time">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label card-text">Schlaf:</label>
+                    <input name="schlaf" class="form-control"type="time">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label card-text">Skincare:</label>
+                    <input name="skincare" class="form-control" type="checkbox">
+                  </div>
+                                    <hr class="s"></hr>
+                  <input form="formular" type="submit" value="Submit" class="btn btn-lg" ></input>
+                                    <hr class="s">
+                </form>
+                  <h2 th:if="${message}" th:text="${message}"/>
+                </div>
+
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    <div>
+                        <hr class="s"><hr class="s"><hr class="s"><hr class="s">
+    </div>
+
+    <!--script src="https://unpgk.com/@popperjs/core@2.4.0/dist/umd/popper.min.js"></script>
+    <script src="bootstrap-3.4.1-dist/js/bootstrap.js"></script-->
+
+
+  </body>
+</html>

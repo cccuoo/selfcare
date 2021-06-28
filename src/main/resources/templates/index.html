@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>self care</title>
+    <style>
+      img {
+        max-width:100%;
+        max-height:auto;
+        border-radius: 1rem;
+      }
+      .titelschrift {
+        width: 100%;
+        height: auto;
+        margin-bottom: 2rem;
+      }
+      .border {
+        padding: 2rem;
+      }
+      hr {
+        width: 70%;
+      }
+      .s {
+        visibility: hidden;
+      }
+      .outline {
+        border-radius: 2rem;
+      }
+      .btn-2 {
+        box-shadow:
+        -7px -7px 20px 0px #fff9,
+        -4px -4px 5px 0px #fff9,
+        7px 7px 20px 0px #0002,
+        4px 4px 5px 0px #0001;
+      }
+      .btn {
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+      .mask-custom {
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+        background-color: rgba(255, 255, 255, 0.7);
+      }
+      h1.test1 {
+        color: #36903d;
+        font-family: Georgia, sans-serif;
+        font-size: 20rem;
+        letter-spacing: -2px;
+      }
+      /* in kleineren Formaten soll die schrift kleiner sein,
+         habe das mit dem Framework nicht hinbekommen */
+      @media (max-width: 992px) {
+        h1.test1 {
+          font-size: 10rem;
+        }
+      }
+      .no-decoration {
+        text-decoration: none !important;
+        color: #36903d;
+      }
+      .card-text {
+        font-size: 2rem;
+      }
+
+    </style>
+    <link rel="stylesheet" href="bootstrap-3.4.1-dist/css/bootstrap.min.css">
+</head>
+
+<body style="background-image: url('img/11.webp'); width: 100%; background-repeat: no-repeat; background-position: center;
+  background-size: cover; height: 100%;">
+
+
+<div class="container text-center">
+    <div class="row">
+
+
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <h1 class="test1">
+                <a class="no-decoration" href="/index.html">
+                    SELF CARE
+                </a>
+            </h1>
+
+
+            <div class="text-center" style="position: fixed; left: 50%; transform: translate(-50%, -50%); bottom: 2rem; z-index: 9999;">
+                <a class="btn btn-primary btn-lg" href="/post">Add New Post</a>
+            </div>
+
+            <div>
+                <hr class="s"><hr class="s"><hr class="s">
+            </div>
+
+            <div class="row gx-1 gy-4">
+
+                <!--img src="/uploads/8" class="img-fluid rounded"/-->
+                <div class="col-lg-6 col-md-12 border" th:each="post : ${postList}">
+
+                    <div class="card btn-2 outline mask-custom">
+                        <img th:src="${post.bild}" class="img-fluid rounded" />
+                        <div class="card-header" style="margin-top: 2rem;" th:text="${'Meditation: '+post.meditation+' Sport: '+post.sport+' Schlaf: '+post.schlaf+' Skincare: '+post.skincare}">Meditation</div>
+                        <div class="card-body">
+                            <h2 class="card-title" th:text="${post.titel}">Titel vom Post</h2>
+                            <hr>
+                            <p class="card-text" th:text="${post.beschreibung}">
+                                Hier soll die Beschreibung stehen.
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted" th:text="${post.datum}">21.01.2001</small>
+                            </p>
+                            <a th:href="'detail.html/'+${post.id}" class="btn btn-lg btn-2">Mehr</a><hr class="s">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<div>
+    <hr class="s"><hr class="s"><hr class="s"><hr class="s">
+</div>
+
+<!--script src="https://unpgk.com/@popperjs/core@2.4.0/dist/umd/popper.min.js"></script>
+<script src="bootstrap-3.4.1-dist/js/bootstrap.js"></script-->
+</body>
+</html>
