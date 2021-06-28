@@ -38,7 +38,7 @@ public class ApiController {
     public byte[] getImageOfPost(@PathVariable(value = "id") Long id) {
 
         Post post =  postRepository.findById(id).orElse(new Post());
-        String bild = post.getBild();
+        String bild = "/Users/cumali/Documents/Studium/WEB/selfcare/src/main/resources/static/uploads/"+id;
         Path path = Paths.get(bild);
         try {
             return Files.readAllBytes(path);
