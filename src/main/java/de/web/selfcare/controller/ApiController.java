@@ -14,7 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -38,7 +37,7 @@ public class ApiController {
     public byte[] getImageOfPost(@PathVariable(value = "id") Long id) {
 
         Post post =  postRepository.findById(id).orElse(new Post());
-        String bild = "/Users/cumali/Documents/Studium/WEB/selfcare/src/main/resources/uploads/"+id;
+        String bild = post.getBild();//"/Users/cumali/Documents/Studium/WEB/selfcare/src/main/resources/uploads/"+id;
         Path path = Paths.get(bild);
         try {
             return Files.readAllBytes(path);

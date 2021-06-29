@@ -4,10 +4,7 @@ import de.web.selfcare.models.Post;
 import de.web.selfcare.models.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -19,15 +16,13 @@ import java.time.LocalDate;
 @org.springframework.stereotype.Controller
 public class Controller {
 
-    private Long id;
-
     @Autowired
     private PostRepository postRepository;
 
     @GetMapping("/deleteall")
     public String deleteAll(Model model) {
         //postRepository.deleteAll();
-        return "index.html";
+        return "redirect:/";
     }
 
     @GetMapping()
@@ -46,15 +41,16 @@ public class Controller {
         return "post.html";
     }
 
-    @GetMapping("/detail.html/{id}")
-    public String detailed(Model model, @PathVariable(value = "id") Long id) {
-        this.id = id;
-        return "redirect:/detail.html";
+    @GetMapping("/detail/{id}")
+    public String detailed(Model model, @PathVariable(value = "id") Long id,
+                           RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("loadID", id);
+        return "redirect:/detail";
     }
 
-    @GetMapping("/detail.html")
-    public String detailedd(Model model) {
-        model.addAttribute("post", postRepository.findById(id).orElse(new Post()));
+    @GetMapping("/detail")
+    public String detailedd(Model model, @ModelAttribute("loadID") Long loadID) {
+        model.addAttribute("post", postRepository.findById(loadID).orElse(new Post()));
         return "detail.html";
     }
 
