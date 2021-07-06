@@ -25,6 +25,11 @@ public class Controller {
         return "redirect:/";
     }
 
+    @GetMapping("/aggregation")
+    public String aggregation(Model model) {
+        return "aggregation.html";
+    }
+
     @GetMapping()
     public String index(Model model) {
         model.addAttribute("postList", postRepository.findAll());

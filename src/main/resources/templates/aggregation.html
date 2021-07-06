@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Aggregation</title>
+    <style>
+      img {
+        max-width:100%;
+        max-height:auto;
+        border-radius: 1rem;
+      }
+      .titelschrift {
+        width: 100%;
+        height: auto;
+        margin-bottom: 2rem;
+      }
+      .border {
+        padding: 2rem;
+      }
+      hr {
+        width: 70%;
+      }
+      .s {
+        visibility: hidden;
+      }
+      .outline {
+        border-radius: 2rem;
+      }
+      .btn-2 {
+        box-shadow:
+        -7px -7px 20px 0px #fff9,
+        -4px -4px 5px 0px #fff9,
+        7px 7px 20px 0px #0002,
+        4px 4px 5px 0px #0001;
+      }
+      .btn {
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+      .mask-custom {
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+        background-color: rgba(255, 255, 255, 0.7);
+      }
+      .card-text {
+        font-size: 3rem;
+      }
+      h1.test1 {
+        color: #36903d;
+        font-family: Georgia, sans-serif;
+        font-size: 20rem;
+        letter-spacing: -2px;
+      }
+      /* in kleineren Formaten soll die schrift kleiner sein,
+         habe das mit dem Framework nicht hinbekommen */
+      @media (max-width: 992px) {
+        h1.test1 {
+          font-size: 10rem;
+        }
+      }
+      .no-decoration {
+        text-decoration: none !important;
+        color: #36903d;
+      }
+      .card-text {
+        margin-top: 1rem;
+      }
+
+    </style>
+    <link rel="stylesheet" href="bootstrap-3.4.1-dist/css/bootstrap.min.css">
+</head>
+
+<body style="background-image: url('img/11.webp'); width: 100%; background-repeat: no-repeat; background-position: center;
+  background-size: cover; height: 100%;">
+
+<div class="container text-center">
+    <div class="row">
+
+
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <h1 class="test1">
+                <a class="no-decoration" href="./index.html">
+                    SELF CARE
+                </a>
+            </h1>
+
+
+            <div class="text-center" style="position: fixed; left: 50%; transform: translate(-50%, -50%); bottom: 2rem; z-index: 9999;">
+                <a href="/index.html" class="btn btn-primary btn-lg" type="reset">Home</a>
+            </div>
+
+            <div>
+                <hr class="s"><hr class="s"><hr class="s">
+            </div>
+
+            <div class="row gx-1 gy-4">
+
+
+                <div class="col-lg-12 col-md-12 border">
+
+                    <div class="card btn-2 outline mask-custom" id="myData">
+
+
+
+
+
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<div>
+    <hr class="s"><hr class="s"><hr class="s"><hr class="s">
+</div>
+<script>
+
+</script>
+
+<script>
+        fetch('/api') //get-request anfrage an api
+            .then(function (response) { //wartet auf antwort der seite
+                return response.json(); //json wird genommen
+            })
+            .then(function (data) {  //wenn man daten hat
+                appendData(data); //mit den daten wird die untere funktion aufgerufen
+            })
+            .catch(function (err) { //falls fehler auftritt wird es ausgegeben
+                console.log('error: ' + err);
+            });
+        function appendData(data) {
+
+            var mainContainer = document.getElementById("myData");
+
+            var insMeditation=0;
+            var insSport=0;
+            var insSchlaf=0;
+            var insSkincare=0;
+
+            for (var i = 0; i < data.length; i++) {
+                //var div = document.createElement("div");
+
+                var time1 = data[i].schlaf.split(':');
+                if ( isNaN(time1[0]) ) time1[0] = 0;
+                if ( isNaN(time1[1]) ) time1[1] = 0;
+                const zeit1= time1[0] * 60 + time1[1];
+
+                var time2 = data[i].meditation.split(':');
+                if ( isNaN(time2[0]) ) time2[0] = 0;
+                if ( isNaN(time2[1]) ) time2[1] = 0;
+                const zeit2= time2[0] * 60 + time2[1];
+
+                var time3 = data[i].sport.split(':');
+                if ( isNaN(time3[0]) ) time3[0] = 0;
+                if ( isNaN(time3[1]) ) time3[1] = 0;
+                const zeit3= time3[0] * 60 + time3[1];
+
+
+                insMeditation += Number(zeit2);
+                insSport += Number(zeit3);
+                insSchlaf += Number(zeit1);
+                insSkincare += data[i].skincare;
+
+                //mainContainer.appendChild(div);
+            }
+            var div = document.createElement("div");
+            var div2 = document.createElement("div");
+            var div3 = document.createElement("div");
+            //div.innerHTML = 'Meditation: '+insMeditation+'  Sport: '+insSport+'  Schlaf: '+insSchlaf+'  Skincare: '+insSkincare;
+
+            //var minuten  = insSchlaf MOD 60
+            //var stunden  = insSchlaf/60 MOD 24.0
+            //var tage     = INT(insSchlaf/60/24.0)
+
+            div.innerHTML = 'Insgesamte Meditation: ' +insMeditation+' minuten';
+            mainContainer.appendChild(div);
+            div2.innerHTML = 'Insgesamter Schlaf: ' +insSchlaf+' minuten';
+            mainContainer.appendChild(div2);
+            div3.innerHTML = 'Insgesamter Sport: ' +insSport+' minuten';
+            mainContainer.appendChild(div3);
+        }
+    </script>
+
+<!--script src="https://unpgk.com/@popperjs/core@2.4.0/dist/umd/popper.min.js"></script>
+<script src="bootstrap-3.4.1-dist/js/bootstrap.js"></script-->
+
+
+</body>
+</html>
