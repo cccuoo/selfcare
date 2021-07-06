@@ -126,8 +126,8 @@
 
 <script>
         fetch('/api') //get-request anfrage an api
-            .then(function (response) { //wartet auf antwort der seite
-                return response.json(); //json wird genommen
+            .then(function (response) { //wartet auf antwort der seite und
+                return response.json(); //wird als json wiedergegeben
             })
             .then(function (data) {  //wenn man daten hat
                 appendData(data); //mit den daten wird die untere funktion aufgerufen
