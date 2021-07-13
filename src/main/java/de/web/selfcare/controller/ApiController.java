@@ -2,6 +2,7 @@ package de.web.selfcare.controller;
 
 import de.web.selfcare.models.Post;
 import de.web.selfcare.models.PostRepository;
+import org.hibernate.cfg.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -97,7 +97,7 @@
                 <div class="col-lg-6 col-md-12 border" th:each="post : ${postList}">
 
                     <div class="card btn-2 outline mask-custom">
-                        <img th:src="@{'/api/' + ${post.id} + '/bild'}" class="img-fluid rounded" />
+                        <img th:src="'/api/' + ${post.id} + '/bild'" class="img-fluid rounded" />
                         <div class="card-header" style="margin-top: 2rem;" th:text="${'Meditation: '+post.meditation+' Sport: '+post.sport+' Schlaf: '+post.schlaf+' Skincare: '+post.skincare}">Meditation</div>
                         <div class="card-body">
                             <h2 class="card-title" th:text="${post.titel}">Titel vom Post</h2>

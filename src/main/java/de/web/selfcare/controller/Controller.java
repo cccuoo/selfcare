@@ -3,6 +3,7 @@ package de.web.selfcare.controller;
 import de.web.selfcare.models.Post;
 import de.web.selfcare.models.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,10 +20,19 @@ public class Controller {
     @Autowired
     private PostRepository postRepository;
 
+    @Autowired
+    private Environment env;
+
     @GetMapping("/deleteall")
     public String deleteAll(Model model) {
         //postRepository.deleteAll();
         return "redirect:/";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteAll(Model model, @PathVariable(value = "id") Long id) {
+        postRepository.deleteById(id);
+        return "redirect:/api";
     }
 
     @GetMapping("/aggregation")
@@ -53,6 +63,11 @@ public class Controller {
         return "redirect:/detail";
     }
 
+    @GetMapping("/chart.js")
+    public String chart(Model model){
+        return "chart.js";
+    }
+
     @GetMapping("/detail")
     public String detailedd(Model model, @ModelAttribute("loadID") Long loadID) {
         model.addAttribute("post", postRepository.findById(loadID).orElse(new Post()));
@@ -73,8 +88,10 @@ public class Controller {
 
         Post post = new Post();
         postRepository.save(post);
-        String path = "/Users/cumali/Documents/Studium/WEB/selfcare/src/main/resources/uploads/"
-                + post.getId();
+
+        String path = env.getProperty("upload_base_dir") + post.getId();
+        /*"/Users/cumali/Documents/Studium/WEB/selfcare/src/main/resources/uploads/"
+                + post.getId();*/
         post.setTitel(titel);
         if (!datum.isEmpty()) post.setDatum(LocalDate.parse(datum));
         post.setBeschreibung(beschreibung);
